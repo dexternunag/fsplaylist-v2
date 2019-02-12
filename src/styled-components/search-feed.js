@@ -79,6 +79,10 @@ export const FeedItems = styled.div`
     max-width: 290px;
     transition: all 150ms ease-in-out;
 
+    @media screen and (min-width: 1440px) {
+      max-width: 249px;
+    }
+
     &:hover {
       // transform: scale(1.1);
       // background-color: #141414;
@@ -180,13 +184,10 @@ export const FeedItems = styled.div`
       .feed-title {
         display: block;
 
-        // position: relative;
-        // top: -3px;
-
-        // padding-left: 5px;
+        padding: 8px 0 15px;
         width: 80%;
 
-        font-size: 12px;
+        font-size: 13px;
 
         white-space: nowrap; 
         overflow: hidden;

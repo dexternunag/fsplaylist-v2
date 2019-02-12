@@ -70,36 +70,57 @@ export const SeekbarDiv = styled.div`
   width: 100%;
   max-width: 500px;
 
-  .rc-slider {
-    margin-left: 15px;
-    margin-right: 15px;
+  .slider-holder {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-top: 2px;
 
-    .rc-slider-rail,
-    .rc-slider-track,
-    .rc-slider-step {
-      height: 3px;
-      transition: all 80ms ease-in-out;
+    .track-title {
+      position: absolute;
+      bottom: 10px;
+      margin-left: 15px;
+      font-size: 12px;
+
+      width: 80%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
-    .rc-slider-handle {
-      margin-top: 1px;
-      width: 0px;
-      height: 0px;
-      transition: all 100ms ease-in-out;
-    }
-
-    &:hover {
+    .rc-slider {
+      margin-left: 15px;
+      margin-right: 15px;
+  
+      width: calc(100% - 30px);
+  
       .rc-slider-rail,
       .rc-slider-track,
       .rc-slider-step {
-        height: 5px;
+        height: 3px;
+        transition: all 80ms ease-in-out;
       }
-
-      .rc-slider-handle { 
-        margin-top: -3px;
-        width: 10px;
-        height: 10px;
-       }
+  
+      .rc-slider-handle {
+        margin-top: 1px;
+        width: 0px;
+        height: 0px;
+        transition: all 100ms ease-in-out;
+      }
+  
+      &:hover {
+        .rc-slider-rail,
+        .rc-slider-track,
+        .rc-slider-step {
+          height: 5px;
+        }
+  
+        .rc-slider-handle { 
+          margin-top: -3px;
+          width: 10px;
+          height: 10px;
+         }
+      }
     }
   }
   

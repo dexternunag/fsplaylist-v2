@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import 'moment-timezone'
 
 import Home from './views/Home'
 import Landing from './views/Landing'

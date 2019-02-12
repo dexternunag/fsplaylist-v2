@@ -32,14 +32,22 @@ class Controls extends Component {
     isPlaying: false,
     progress: 80,
     volume: 80,
+    items: [],
+    currentTrackTitle: ''
   }
 
   componentDidMount() {
-    
   }
 
-  componentWillReceiveProps({ volume, progress, isPlaying }) {
-    this.setState({volume, progress, isPlaying})
+  componentWillReceiveProps({ volume, progress, isPlaying, items, playedTime, trackDuration }) {
+    this.setState({
+      playedTime,
+      trackDuration,
+      volume, 
+      progress, 
+      isPlaying, 
+      currentTrackTitle: items.length !== 0 ? items[0].title : null
+    })
   }
 
   toggleVolume = async () => {
@@ -70,8 +78,7 @@ class Controls extends Component {
   }
 
   render() {
-    const { progress, volume, isPlaying } = this.state;
-
+    const { progress, volume, isPlaying, currentTrackTitle, playedTime, trackDuration } = this.state;
     return (
       <PlayerControls>
         {/* <Progress completed={100} /> */}
@@ -88,15 +95,18 @@ class Controls extends Component {
           </PlaybackControls>
 
           <SeekbarDiv>
-            {/* <span className="seeked-time">0:00</span> */}
-            <Slider 
-              min={0} 
-              max={100} 
-              defaultValue={progress}
-              value={progress}
-              onAfterChange={this.handleSeekbarChange}
-              onChange={this.handleSeekbarChange} />
-            {/* <span className="total-time">4:15</span> */}
+            <span className="seeked-time">{playedTime}</span>
+            <span className="slider-holder">
+              <p className="track-title">{currentTrackTitle}</p>
+              <Slider 
+                min={0} 
+                max={100} 
+                defaultValue={progress}
+                value={progress}
+                onAfterChange={this.handleSeekbarChange}
+                onChange={this.handleSeekbarChange} />
+            </span>
+            <span className="total-time">{trackDuration}</span>
           </SeekbarDiv>
           {/* Volume Slider */}
           <VolumeDiv>

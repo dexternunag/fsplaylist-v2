@@ -90,6 +90,12 @@ export const ListItem = styled.li`
   svg {
     color: #656565;
   }
+
+  &.current {
+    color: #ff3f34;
+    span { color: #ff3f34; }
+    svg { color: #ff3f34; }
+  }
 `
 
 export const ListHeader = styled.div`

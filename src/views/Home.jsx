@@ -60,8 +60,6 @@ export default class Home extends Component {
     this.setState({hasData: false, hasQueued: false, data: []})
     const { prevPageToken, nextPageToken, items: data } = await search(query)
 
-    console.log(data)
-
     this.setState({prevPageToken, nextPageToken, data, hasData: true, query})
   }
 
@@ -132,6 +130,8 @@ export default class Home extends Component {
                 <Controls 
                   ref={this.controlsRef} 
                   items={items}
+                  playedTime={this.state.playedTime}
+                  trackDuration={this.state.currentTrackDuration}
                   handleViewQueueList={this.handleViewQueueList.bind(this)} 
                   volume={this.state.volume}
                   isPlaying={this.state.isPlaying}

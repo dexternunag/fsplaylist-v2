@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
-import QueueOptions from './QueueOptions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faAngleDown, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { Playlist, ListItems, ListItem, ListHeader, ListTitle, ListHeaderText } from '../styled-components/queue-list'
 
 import database from '../services/firebase'
+
+import moment from 'moment'
+import momentDurationFormatSetup from 'moment-duration-format'
+momentDurationFormatSetup(moment)
 
 class QueueList extends Component {
   state = {
@@ -60,8 +63,11 @@ class QueueList extends Component {
     await database.child(this.state.floor).update({items})
   }
 
-  onPlayerDuration = () => {
-    // console.log(data)
+  onPlayerDuration = async (data) => {
+    const currentTrackDuration = this.formatTime(data)
+    await database.child(this.state.floor).update({currentTrackDuration})
+    console.log(currentTrackDuration)
+    this.setState({currentTrackDuration})
   }
 
   onPlayerStart = async () => {
@@ -79,12 +85,19 @@ class QueueList extends Component {
     await database.child(this.state.floor).update({items, isPlaying: true})
   }
 
-  onPlayerProgress = async ({ played }) => {
+  onPlayerProgress = async ({ played, playedSeconds }) => {
+    let playedTime = this.formatTime(playedSeconds)
+    playedTime = playedTime.length !== 1 ? playedTime : `0${playedTime}`
+    if (!playedTime.includes(':')) playedTime = `0:${playedTime}`
+    
     const progress = played * 100
-    await database.child(this.state.floor).update({progress})
+    await database.child(this.state.floor).update({progress, playedTime})
   }
 
-
+  formatTime = (seconds) => {
+    const duration = moment.duration(seconds, 'seconds')
+    return duration.format('h:m:ss')
+  }
 
   render() {
     const { items } = this.state
@@ -99,7 +112,7 @@ class QueueList extends Component {
       )
     } else {
       playlistContent = items.map(({ title }, i) => (
-        <ListItem key={i}>
+        <ListItem key={i} className={i === 0 ? 'current' : null}>
             {title}
             <span>
               {/* <span className="text">
@@ -128,6 +141,7 @@ class QueueList extends Component {
         <ListHeader>
           <ListTitle>Queue</ListTitle>
           <ListHeaderText>{items.length} tracks</ListHeaderText>
+          {this.state.currentTrackDuration}
           {/* <ListHeaderText>2 hrs 5 mins</ListHeaderText> */}
         </ListHeader>
 

@@ -84,7 +84,7 @@ class QueueList extends Component {
       searchFeedResults = (Array.from(Array(24), (e, i) => 
         <SkeletonTheme key={i} className="skeleton" color="#303030" highlightColor="#282828">
           <div className="skeleton-image">
-            <Skeleton height="163.3px" width="290px" duration={1.5} />
+            <Skeleton height="163.3px" width="249px" duration={1.5} />
           </div>
           <div className="skeleton-text">
             <Skeleton height="12px" width="180px" duration={1.5} />
