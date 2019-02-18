@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
 
+import equalizerImg from '../assets/equalizer.gif'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faAngleDown, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { Playlist, ListItems, ListItem, ListHeader, ListTitle, ListHeaderText } from '../styled-components/queue-list'
@@ -100,7 +102,7 @@ class QueueList extends Component {
   }
 
   render() {
-    const { items } = this.state
+    const { items, isPlaying } = this.state
 
     let playlistContent;
 
@@ -111,20 +113,29 @@ class QueueList extends Component {
         </ListItem>
       )
     } else {
-      playlistContent = items.map(({ title }, i) => (
+      playlistContent = items.map(({ title, thumbnail }, i) => (
         <ListItem key={i} className={i === 0 ? 'current' : null}>
-            {title}
-            <span>
-              {/* <span className="text">
-                <FontAwesomeIcon icon={faPlay} onClick={() => this.onPlay(i)}/>
-              </span> */}
-              {
-                i > 0 
-                  ? <span className="text next" onClick={() => this.onQueueNext(i)}>Queue Next</span>
-                  : <span className="text now">Current Track</span>
-              }
-              <FontAwesomeIcon icon={faTimes} onClick={() => this.onRemove(i)}/>
+          <span className="list-left-holder">
+            <span className="list-image">
+              <img 
+                className={(i === 0 && isPlaying) ? "is-playing" : ""}
+                src={(i === 0 && isPlaying) ? equalizerImg  : thumbnail} 
+                alt=""
+              />
             </span>
+            <p className="list-title">{title}</p>
+          </span>
+          <span className="list-right-holder">
+            {/* <span className="text">
+              <FontAwesomeIcon icon={faPlay} onClick={() => this.onPlay(i)}/>
+            </span> */}
+            {
+              i > 0 
+                ? <span className="text next" onClick={() => this.onQueueNext(i)}>Queue Next</span>
+                : <span className="text now">Current Track</span>
+            }
+            <FontAwesomeIcon icon={faTimes} onClick={() => this.onRemove(i)}/>
+          </span>
           </ListItem>
       ))
     }

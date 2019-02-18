@@ -20,7 +20,7 @@ function search(q, pageToken) {
 
       const newItems = items.map(({ id, snippet }, i) => ({
         id: id.videoId,
-        thumbnail: snippet.thumbnails.medium.url,
+        thumbnail: snippet.thumbnails.high.url,
         title: snippet.title
       }))
 

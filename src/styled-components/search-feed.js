@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const SearchFeedDiv = styled.div`
-  padding: 0 5%;
+  // padding: 0 5%;
 `
 
 export const Feed = styled.div`
@@ -10,6 +10,7 @@ export const Feed = styled.div`
   height: calc(80vh - 77px);
   overflow: scroll;
   overflow-x: hidden;
+  padding: 0 5%;
 
   .css-rk5brx {
     display: flex;
@@ -55,7 +56,7 @@ export const FeedHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-right: 40px;
+  // padding-right: 15px;
   width: 100%;
 `
 
@@ -66,6 +67,7 @@ export const FeedTitle = styled.h2`
 export const FeedItems = styled.div`
   display: flex;
   flex-flow: wrap;
+  justify-content: space-between;
 
   color: #fff;
 
@@ -73,14 +75,18 @@ export const FeedItems = styled.div`
     display: flex;
     flex-flow: column;
     padding-bottom: 10px;
-    padding-right: 10px;
+    // padding-right: 10px;
 
     width: 100%;
-    max-width: 290px;
+    max-width: 235px;
     transition: all 150ms ease-in-out;
 
     @media screen and (min-width: 1440px) {
-      max-width: 249px;
+      // max-width: 235px;
+
+      .feed-image-holder {
+        height: 215px;
+      }
     }
 
     &:hover {
@@ -98,13 +104,21 @@ export const FeedItems = styled.div`
     .feed-image-holder {
       position: relative;
       width: 100%;
-      height: auto;
+      height: 200px;
       overflow: hidden;
 
+      border-radius: 3px;
+      box-shadow: 0 1px 6px rgb(0, 0, 0);
+
       .feed-image {
-        width: 100%;
-        min-width: 80px;
-        height: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
 
         transition: all 150ms ease-in-out;
       }
@@ -188,6 +202,7 @@ export const FeedItems = styled.div`
         width: 80%;
 
         font-size: 13px;
+        color: #c4c4c4;
 
         white-space: nowrap; 
         overflow: hidden;
